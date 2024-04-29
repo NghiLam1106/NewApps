@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import com.example.do_an_co_so_3.navigation.NavigationGraph
 import com.example.do_an_co_so_3.ui.theme.Do_an_co_so_3Theme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -22,7 +21,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    NavigationGraph()
+
                 }
             }
         }
