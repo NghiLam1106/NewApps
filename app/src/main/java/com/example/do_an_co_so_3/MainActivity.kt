@@ -12,14 +12,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.core.view.WindowCompat
 import com.example.do_an_co_so_3.presentation.onboarding.OnBoardingScreen
 import com.example.do_an_co_so_3.ui.theme.Do_an_co_so_3Theme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
             Do_an_co_so_3Theme(
                 dynamicColor = false
@@ -38,18 +36,3 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-//@Composable
-//fun Greeting(name: String, modifier: Modifier = Modifier) {
-//    Text(
-//        text = "Hello $name!",
-//        modifier = modifier
-//    )
-//}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    Do_an_co_so_3Theme {
-        OnBoardingScreen()
-    }
-}
