@@ -80,8 +80,14 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.48")
     kapt("com.google.dagger:hilt-compiler:2.48")
 
-    //Google auth dependency
-    implementation ("com.google.android.gms:play-services-auth:21.1.0")
+    // Preferences DataStore
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
+
+    implementation("androidx.datastore:datastore-preferences-rxjava2:1.0.0")
+
+    implementation("androidx.datastore:datastore-preferences-rxjava3:1.0.0")
+
+    // Cloud Firestore
     implementation(platform("com.google.firebase:firebase-bom:32.8.1"))
-    implementation("com.google.firebase:firebase-auth")
+    implementation("com.google.firebase:firebase-firestore")
 }

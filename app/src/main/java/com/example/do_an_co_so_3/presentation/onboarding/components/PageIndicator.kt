@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import com.example.do_an_co_so_3.presentation.Dimens
 import com.example.do_an_co_so_3.ui.theme.BlueGray
 
@@ -22,12 +23,20 @@ fun PageIndicator(
     selectedColor: Color = MaterialTheme.colorScheme.primary,
     unselectedColor: Color = BlueGray
 ) {
-    Row(modifier = Modifier, horizontalArrangement = Arrangement.SpaceBetween) {
+    Row(modifier = modifier, horizontalArrangement = Arrangement.SpaceBetween) {
         repeat(pageSize) { page ->
             Box(
-                modifier = Modifier.size(Dimens.IndicatorSize).clip(CircleShape)
+                modifier = Modifier
+                    .size(Dimens.IndicatorSize)
+                    .clip(CircleShape)
                     .background(color = if (page == selectedPage) selectedColor else unselectedColor)
             )
         }
     }
 }
+
+//@Preview(showBackground = true)
+//@Composable
+//fun Preview() {
+//    PageIndicator(pageSize = 4, selectedPage = 4)
+//}
