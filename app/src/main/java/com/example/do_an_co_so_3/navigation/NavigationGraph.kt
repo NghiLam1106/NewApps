@@ -14,6 +14,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
+import androidx.paging.compose.collectAsLazyPagingItems
+import com.example.do_an_co_so_3.presentation.home.HomeScreen
+import com.example.do_an_co_so_3.presentation.home.HomeViewModel
 import com.example.do_an_co_so_3.presentation.login_screen.SignInScreen
 import com.example.do_an_co_so_3.presentation.onboarding.OnBoardingScreen
 import com.example.do_an_co_so_3.presentation.onboarding.OnBoardingViewModel
@@ -54,13 +57,9 @@ fun NavigationGraph(
             startDestination = Screens.NewsNavigatiorScreen.route
         ) {
             composable(route = Screens.NewsNavigatiorScreen.route) {
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(text = "New Navigator Screen")
-                }
+                val viewModel: HomeViewModel = hiltViewModel()
+                val articles = viewModel.news.collectAsLazyPagingItems()
+                HomeScreen(articles = articles, navigate = {})
             }
         }
     }
