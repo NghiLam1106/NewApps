@@ -13,6 +13,7 @@ import com.example.do_an_co_so_3.domain.usercase.app_entry.ReadAppEntry
 import com.example.do_an_co_so_3.domain.usercase.app_entry.SaveAppEntry
 import com.example.do_an_co_so_3.domain.usercase.news.GetNews
 import com.example.do_an_co_so_3.domain.usercase.news.NewsUseCase
+import com.example.do_an_co_so_3.domain.usercase.news.SearchNews
 import com.example.do_an_co_so_3.util.Constants.BASE_URL
 import com.google.firebase.auth.FirebaseAuth
 import dagger.Module
@@ -73,7 +74,8 @@ object AppModule {
         newsRepository: NewsRepository
     ): NewsUseCase {
         return NewsUseCase(
-            getNews = GetNews(newsRepository)
+            getNews = GetNews(newsRepository),
+            searchNews = SearchNews(newsRepository)
         )
     }
 }
