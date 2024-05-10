@@ -1,6 +1,5 @@
 package com.example.do_an_co_so_3.presentation.search
 
-import android.widget.SearchView
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,15 +8,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.example.do_an_co_so_3.navigation.Screens
 import com.example.do_an_co_so_3.presentation.Dimens
 import com.example.do_an_co_so_3.presentation.common.ArticlesList
 import com.example.do_an_co_so_3.presentation.common.SearchBar
 
 @Composable
-fun Screens.SearchScreen(
+fun SearchScreen(
     state: SearchState,
     event: (SearchEvent) -> Unit,
     navigate: (String) -> Unit
@@ -35,12 +32,16 @@ fun Screens.SearchScreen(
         SearchBar(text = state.searchQuery,
             readOnly = false,
             onValueChange = { event(SearchEvent.UpdateSearchQuery(it)) },
-            onSearch = { event(SearchEvent.SearchNews)}) 
+            onSearch = { event(SearchEvent.SearchNews) })
         Spacer(modifier = Modifier.height(Dimens.MediumPadding1))
         state.articles?.let {
-            val viewModel:  SearchViewModel = hiltViewModel()
-            SearchScreen(state = viewModel.state.value, event = viewModel::onEvent, navigate = {})
-
+            val articles = it.collectAsLazyPagingItems()
+            ArticlesList(
+                articles = articles,
+                onClick = {
+                    // TODO: Navigate to details screen
+                }
+            )
         }
     }
 }

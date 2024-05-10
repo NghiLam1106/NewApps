@@ -17,9 +17,11 @@ import androidx.navigation.navigation
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.do_an_co_so_3.presentation.home.HomeScreen
 import com.example.do_an_co_so_3.presentation.home.HomeViewModel
+import com.example.do_an_co_so_3.presentation.search.SearchScreen
 import com.example.do_an_co_so_3.presentation.login_screen.SignInScreen
 import com.example.do_an_co_so_3.presentation.onboarding.OnBoardingScreen
 import com.example.do_an_co_so_3.presentation.onboarding.OnBoardingViewModel
+import com.example.do_an_co_so_3.presentation.search.SearchViewModel
 import com.example.do_an_co_so_3.presentation.singup_screen.SignUpScreen
 
 @Composable
@@ -52,14 +54,24 @@ fun NavigationGraph(
             }
         }
 
+//        navigation(
+//            route = Screens.NewsNavigation.route,
+//            startDestination = Screens.NewsNavigatiorScreen.route
+//        ) {
+//            composable(route = Screens.NewsNavigatiorScreen.route) {
+//                val viewModel: HomeViewModel = hiltViewModel()
+//                val articles = viewModel.news.collectAsLazyPagingItems()
+//                HomeScreen(articles = articles, navigate = {})
+//            }
+//        }
+
         navigation(
             route = Screens.NewsNavigation.route,
             startDestination = Screens.NewsNavigatiorScreen.route
         ) {
             composable(route = Screens.NewsNavigatiorScreen.route) {
-                val viewModel: HomeViewModel = hiltViewModel()
-                val articles = viewModel.news.collectAsLazyPagingItems()
-                HomeScreen(articles = articles, navigate = {})
+                val viewModel: SearchViewModel = hiltViewModel()
+                SearchScreen(state = viewModel.state.value, event = viewModel::onEvent, navigate = {})
             }
         }
     }
