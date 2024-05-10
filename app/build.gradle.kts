@@ -63,6 +63,7 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.firebase.auth)
+    implementation(libs.androidx.room.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -80,8 +81,26 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.48")
     kapt("com.google.dagger:hilt-compiler:2.48")
 
-    //Google auth dependency
-    implementation ("com.google.android.gms:play-services-auth:21.1.0")
+    // Preferences DataStore
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
+
+    implementation("androidx.datastore:datastore-preferences-rxjava2:1.0.0")
+
+    implementation("androidx.datastore:datastore-preferences-rxjava3:1.0.0")
+
+    // Cloud Firestore
     implementation(platform("com.google.firebase:firebase-bom:32.8.1"))
-    implementation("com.google.firebase:firebase-auth")
+    implementation("com.google.firebase:firebase-firestore")
+
+    //Retrofit
+    implementation ("com.squareup.retrofit2:retrofit:2.7.1")
+    implementation ("com.squareup.retrofit2:converter-gson:2.7.1")
+
+    //Paging 3
+    val paging_version = "3.1.1"
+    implementation ("androidx.paging:paging-runtime:$paging_version")
+    implementation ("androidx.paging:paging-compose:3.2.0-rc01")
+
+    //Coil
+    implementation("io.coil-kt:coil-compose:2.4.0")
 }

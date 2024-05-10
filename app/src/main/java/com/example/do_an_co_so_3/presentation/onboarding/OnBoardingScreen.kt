@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -17,6 +18,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import com.example.do_an_co_so_3.presentation.Dimens
 import com.example.do_an_co_so_3.presentation.common.NewsButton
 import com.example.do_an_co_so_3.presentation.common.NewsTextButton
@@ -26,7 +28,9 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun OnBoardingScreen() {
+fun OnBoardingScreen(
+    event: (OnBoardingEvent) -> Unit
+) {
     Column(modifier = Modifier.fillMaxSize()) {
         val pagerState = rememberPagerState(initialPage = 0) {
             pages.size
@@ -48,7 +52,7 @@ fun OnBoardingScreen() {
         Spacer(modifier = Modifier.weight(1f))
         Row(
             modifier = Modifier
-                .fillMaxSize()
+                .fillMaxWidth()
                 .padding(horizontal = Dimens.MediumPadding2)
                 .navigationBarsPadding(),
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -78,8 +82,8 @@ fun OnBoardingScreen() {
                     text = buttonState.value[1],
                     onClick = {
                         scope.launch {
-                            if (pagerState.currentPage == 3) {
-                                //TODO: Navigation to Home Screen
+                            if (pagerState.currentPage == 2) {
+                                event(OnBoardingEvent.SaveAppEntry)
                             } else {
                                 pagerState.animateScrollToPage(
                                     page = pagerState.currentPage + 1
@@ -93,3 +97,9 @@ fun OnBoardingScreen() {
         Spacer(modifier = Modifier.weight(0.5f))
     }
 }
+
+//@Preview(showBackground = true)
+//@Composable
+//fun Preview() {
+//    OnBoardingScreen()
+//}
