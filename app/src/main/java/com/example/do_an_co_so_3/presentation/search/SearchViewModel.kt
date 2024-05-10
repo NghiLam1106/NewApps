@@ -20,8 +20,7 @@ class SearchViewModel @Inject constructor(
     fun onEvent(event: SearchEvent) {
         when (event) {
             is SearchEvent.UpdateSearchQuery -> {
-//                _state.value = state.value.copy(searchQuery = event.searchQuery)
-                
+                _state.value = state.value.copy(searchQuery = event.searchQuery)
             }
 
             is SearchEvent.SearchNews -> {
@@ -35,6 +34,6 @@ class SearchViewModel @Inject constructor(
             searchQuery = state.value.searchQuery,
             sources = listOf("bbc-news", "abc-news", "english-news")
         ).cachedIn(viewModelScope)
-//        _state.value = state.value.copy(articles = articles)
+        _state.value = state.value.copy(articles = articles)
     }
 }
