@@ -12,23 +12,56 @@ import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import com.example.do_an_co_so_3.domain.model.Article
 import com.example.do_an_co_so_3.presentation.Dimens
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
+
+@Composable
+fun ArticlesListFromData(
+    modifier: Modifier = Modifier,
+    articles: List<Article>,
+    onClick: (Article) -> Unit,
+) {
+
+    if (articles.isEmpty()){
+        EmptyScreen()
+    }
+    LazyColumn(
+        modifier = modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.spacedBy(Dimens.MediumPadding1),
+        contentPadding = PaddingValues(all = Dimens.ExtraSmallPadding2)
+    ) {
+        items(
+            count = articles.size,
+        ) {
+            articles[it].let { article ->
+                ArticleCard(article = article, onClick = { onClick(article) })
+            }
+        }
+    }
+
+}
 
 @Composable
 fun ArticlesList(
     modifier: Modifier = Modifier,
     articles: LazyPagingItems<Article>,
-    onClick: () -> Unit
+    onClick: (Article) -> Unit
 ) {
-    val handlePagingResult = handlePagingResult(articles = articles)
+
+    val handlePagingResult = handlePagingResult(articles)
+
+
     if (handlePagingResult) {
         LazyColumn(
-            modifier = Modifier.fillMaxSize(),
+            modifier = modifier.fillMaxSize(),
             verticalArrangement = Arrangement.spacedBy(Dimens.MediumPadding1),
             contentPadding = PaddingValues(all = Dimens.ExtraSmallPadding2)
         ) {
-            items(count = articles.itemCount) {
-                articles[it]?.let {
-                    ArticleCard(article = it, onClick = { onClick() })
+            items(
+                count = articles.itemCount,
+            ) {
+                articles[it]?.let { article ->
+                    ArticleCard(article = article, onClick = { onClick(article) })
                 }
             }
         }
@@ -52,6 +85,10 @@ fun handlePagingResult(
             false
         }
         error != null -> {
+            EmptyScreen(error = error)
+            false
+        }
+        articles.itemCount == 0 -> {
             EmptyScreen()
             false
         }

@@ -1,8 +1,7 @@
 package com.example.do_an_co_so_3
 
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.do_an_co_so_3.domain.usercase.app_entry.AppEntryUseCases
@@ -17,16 +16,16 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     private val appEntryUseCases: AppEntryUseCases
 ): ViewModel() {
-    var startDestination by mutableStateOf(Screens.AppStartNavigation.route)
-        private set
+    private val _startDestination = mutableStateOf(Screens.AppStartNavigation.route)
+    val startDestination: State<String> = _startDestination
 
     init {
         appEntryUseCases.readAppEntry().onEach { shouldStartFromHomeScreen ->
             if (shouldStartFromHomeScreen) {
-                startDestination = Screens.NewsNavigation.route
+                _startDestination.value = Screens.NewsNavigation.route
             }
             else {
-                startDestination = Screens.AppStartNavigation.route
+                _startDestination.value = Screens.AppStartNavigation.route
             }
             delay(300)
         }.launchIn(viewModelScope)

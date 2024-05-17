@@ -33,7 +33,8 @@ import com.example.do_an_co_so_3.presentation.common.SearchBar
 @Composable
 fun HomeScreen(
     articles: LazyPagingItems<Article>,
-    navigate: (String) -> Unit
+    navigateToSearch: () -> Unit,
+    navigateToDetails: (Article) -> Unit
 ) {
     val titles by remember {
         derivedStateOf {
@@ -69,9 +70,7 @@ fun HomeScreen(
             text = "",
             readOnly = true,
             onValueChange = {},
-            onClick = {
-                navigate(Screens.SearchScreen.route)
-            },
+            onClick = navigateToSearch,
             onSearch = {}
         )
 
@@ -90,11 +89,9 @@ fun HomeScreen(
         Spacer(modifier = Modifier.height(Dimens.MediumPadding1))
 
         ArticlesList(
+            modifier = Modifier.padding(horizontal = Dimens.MediumPadding1),
             articles = articles,
-            onClick = {
-                navigate(Screens.DetailsScreen.route)
-            },
-            modifier = Modifier.padding(horizontal = Dimens.MediumPadding1)
+            onClick = navigateToDetails
         )
     }
 }

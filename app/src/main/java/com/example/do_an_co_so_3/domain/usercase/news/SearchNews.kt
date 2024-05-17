@@ -4,8 +4,9 @@ import androidx.paging.PagingData
 import com.example.do_an_co_so_3.domain.model.Article
 import com.example.do_an_co_so_3.domain.repository.NewsRepository
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class SearchNews(
+class SearchNews (
     private val newsRepository: NewsRepository
 ) {
 

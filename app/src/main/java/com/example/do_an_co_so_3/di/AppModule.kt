@@ -11,7 +11,11 @@ import com.example.do_an_co_so_3.domain.repository.NewsRepository
 import com.example.do_an_co_so_3.domain.usercase.app_entry.AppEntryUseCases
 import com.example.do_an_co_so_3.domain.usercase.app_entry.ReadAppEntry
 import com.example.do_an_co_so_3.domain.usercase.app_entry.SaveAppEntry
+import com.example.do_an_co_so_3.domain.usercase.news.AddArticle
+import com.example.do_an_co_so_3.domain.usercase.news.DeleteArticle
 import com.example.do_an_co_so_3.domain.usercase.news.GetNews
+import com.example.do_an_co_so_3.domain.usercase.news.GetSavedArticle
+//import com.example.do_an_co_so_3.domain.usercase.news.GetSavedArticles
 import com.example.do_an_co_so_3.domain.usercase.news.NewsUseCase
 import com.example.do_an_co_so_3.domain.usercase.news.SearchNews
 import com.example.do_an_co_so_3.util.Constants.BASE_URL
@@ -75,7 +79,11 @@ object AppModule {
     ): NewsUseCase {
         return NewsUseCase(
             getNews = GetNews(newsRepository),
-            searchNews = SearchNews(newsRepository)
+            searchNews = SearchNews(newsRepository),
+            deleteArticleUseCase = DeleteArticle(newsRepository),
+            addArticleUseCase = AddArticle(newsRepository),
+            getSavedArticleUseCase = GetSavedArticle(newsRepository),
+//            getSavedArticlesUseCase = GetSavedArticles(newsRepository)
         )
     }
 }

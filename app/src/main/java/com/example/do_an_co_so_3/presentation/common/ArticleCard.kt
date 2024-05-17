@@ -90,23 +90,23 @@ fun ArticleCard(
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun Preview() {
-    Do_an_co_so_3Theme {
-        ArticleCard(
-            article = Article(
-                author = "",
-                content = "",
-                description = "",
-                publishedAt = "2 hours",
-                source = Source(id = "", name = "VTV"),
-                title = "What’s happening at Tesla? Here’s what experts think",
-                url = "",
-                urlToImage = ""
-            )
-        ) {
-
-        }
-    }
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun Preview() {
+//    Do_an_co_so_3Theme {
+//        ArticleCard(
+//            article = Article(
+//                author = "",
+//                content = "",
+//                description = "",
+//                publishedAt = "2 hours",
+//                source = Source(id = "", name = "VTV"),
+//                title = "What’s happening at Tesla? Here’s what experts think",
+//                url = "",
+//                urlToImage = ""
+//            )
+//        ) {
+//
+//        }
+//    }
+//}

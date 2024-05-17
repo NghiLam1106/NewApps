@@ -4,6 +4,7 @@ plugins {
     id("com.google.gms.google-services")
     id ("kotlin-kapt")
     id("com.google.dagger.hilt.android")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -64,6 +65,8 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.firebase.auth)
     implementation(libs.androidx.room.ktx)
+    implementation(libs.firebase.database)
+    implementation(libs.firebase.firestore)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -86,10 +89,6 @@ dependencies {
     implementation("androidx.datastore:datastore-preferences-rxjava2:1.0.0")
     implementation("androidx.datastore:datastore-preferences-rxjava3:1.0.0")
 
-    // Cloud Firestore
-    implementation(platform("com.google.firebase:firebase-bom:32.8.1"))
-    implementation("com.google.firebase:firebase-firestore")
-
     //Retrofit
     implementation ("com.squareup.retrofit2:retrofit:2.7.1")
     implementation ("com.squareup.retrofit2:converter-gson:2.7.1")
@@ -101,4 +100,6 @@ dependencies {
 
     //Coil
     implementation("io.coil-kt:coil-compose:2.4.0")
+
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9")
 }

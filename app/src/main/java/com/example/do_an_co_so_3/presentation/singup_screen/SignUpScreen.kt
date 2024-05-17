@@ -44,7 +44,11 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.do_an_co_so_3.R
+import com.example.do_an_co_so_3.domain.model.Users
 import com.example.do_an_co_so_3.navigation.Screens
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 
 @Composable
@@ -52,14 +56,19 @@ fun SignUpScreen(
     navController: NavController,
     viewModel: SignInViewModel = hiltViewModel()
 ) {
+
     var email by rememberSaveable { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
     var passwordconfirm by rememberSaveable { mutableStateOf("") }
+    var username by rememberSaveable { mutableStateOf("") }
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
     val state = viewModel.signUpState.collectAsState(initial = null)
 
     var isShowPassword by remember {
+        mutableStateOf(false)
+    }
+    var isShowPasswordConfirm by remember {
         mutableStateOf(false)
     }
 
@@ -76,6 +85,20 @@ fun SignUpScreen(
             fontSize = 35.sp,
             modifier = Modifier.padding(bottom = 10.dp)
         )
+        OutlinedTextField(
+            value = username,
+            onValueChange = { username = it },
+            keyboardOptions = KeyboardOptions.Default.copy(
+                keyboardType = KeyboardType.Text,
+                imeAction = ImeAction.Next
+            ),
+            shape = RoundedCornerShape(10.dp),
+            singleLine = true,
+            label = { Text(text = "Tên tài khoản") },
+            placeholder = { Text(text = "Tên tài khoản") },
+            modifier = Modifier.fillMaxWidth()
+        )
+        Spacer(modifier = Modifier.height(16.dp))
         OutlinedTextField(
             value = email,
             onValueChange = { email = it },
@@ -95,7 +118,7 @@ fun SignUpScreen(
             onValueChange = { password = it },
             keyboardOptions = KeyboardOptions.Default.copy(
                 keyboardType = KeyboardType.Password,
-                imeAction = ImeAction.Done
+                imeAction = ImeAction.Next
             ),
             shape = RoundedCornerShape(10.dp),
             singleLine = true,
@@ -129,16 +152,16 @@ fun SignUpScreen(
             placeholder = { Text(text = "Password") },
             trailingIcon = {
                 IconButton(onClick = {
-                    isShowPassword = !isShowPassword
+                    isShowPasswordConfirm = !isShowPasswordConfirm
                 }) {
                     Icon(
-                        if (isShowPassword) painterResource(id = R.drawable.view_709612) else painterResource(id = R.drawable.eye_13949475),
+                        if (isShowPasswordConfirm) painterResource(id = R.drawable.view_709612) else painterResource(id = R.drawable.eye_13949475),
                         contentDescription = null,
                         modifier = Modifier.size(30.dp)
                     )
                 }
             },
-            visualTransformation = if (isShowPassword) VisualTransformation.None else PasswordVisualTransformation(),
+            visualTransformation = if (isShowPasswordConfirm) VisualTransformation.None else PasswordVisualTransformation(),
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(16.dp))
@@ -146,8 +169,11 @@ fun SignUpScreen(
             onClick = {
                 if (password == passwordconfirm) {
                     scope.launch {
-                        viewModel.registerUser(email, password)
+                        viewModel.registerUser(email, password, username)
                     }
+                }
+                else if (username.isEmpty() || email.isEmpty() || password.isEmpty() || passwordconfirm.isEmpty()) {
+                    Toast.makeText(context, "Không được để trống thông tin", Toast.LENGTH_LONG).show()
                 }
                 else {
                     Toast.makeText(context, "Mật khẩu không trùng khớp", Toast.LENGTH_LONG).show()
@@ -168,11 +194,11 @@ fun SignUpScreen(
                 modifier = Modifier.padding(7.dp)
             )
         }
+        Spacer(modifier = Modifier.height(16.dp))
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
             if (state.value?.isLoading == true) {
                 CircularProgressIndicator()
             }
-
         }
         Row(
             modifier = Modifier
@@ -201,10 +227,12 @@ fun SignUpScreen(
         scope.launch {
             if (state.value?.isSuccess?.isNotEmpty() == true) {
                 val success = state.value?.isSuccess
+
                 Toast.makeText(context, "$success", Toast.LENGTH_LONG).show()
                 email = ""
                 password = ""
                 passwordconfirm = ""
+                username = ""
             }
         }
     }

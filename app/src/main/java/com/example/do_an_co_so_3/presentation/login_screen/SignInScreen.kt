@@ -50,7 +50,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun SignInScreen(
     navController: NavController,
-    viewModel: SignInViewModel = hiltViewModel()
+    viewModel: SignInViewModel = hiltViewModel(),
 ) {
     var email by rememberSaveable { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
@@ -118,7 +118,9 @@ fun SignInScreen(
                     isShowPassword = !isShowPassword
                 }) {
                     Icon(
-                        if (isShowPassword) painterResource(id = R.drawable.view_709612) else painterResource(id = R.drawable.eye_13949475),
+                        if (isShowPassword) painterResource(id = R.drawable.view_709612) else painterResource(
+                            id = R.drawable.eye_13949475
+                        ),
                         contentDescription = null,
                         modifier = Modifier.size(30.dp)
                     )
@@ -126,7 +128,6 @@ fun SignInScreen(
             },
             visualTransformation = if (isShowPassword) VisualTransformation.None else PasswordVisualTransformation(),
         )
-
         Button(
             onClick = {
                 scope.launch {
@@ -144,6 +145,7 @@ fun SignInScreen(
         ) {
             Text(text = "Đăng nhập", color = Color.White, modifier = Modifier.padding(7.dp))
         }
+        Spacer(modifier = Modifier.height(16.dp))
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
             if (state.value?.isLoading == true) {
                 CircularProgressIndicator()
@@ -174,6 +176,7 @@ fun SignInScreen(
                 if (state.value?.isSuccess?.isNotEmpty() == true) {
                     val success = state.value?.isSuccess
                     Toast.makeText(context, "$success", Toast.LENGTH_LONG).show()
+                    navController.navigate(Screens.ProfileScreen.route)
                     email = ""
                     password = ""
                 }

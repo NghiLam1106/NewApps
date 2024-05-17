@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -39,23 +40,30 @@ fun DetailsTopBar(
         ),
         navigationIcon = {
             IconButton(onClick = onBackClick) {
-                Icon(painter = painterResource(id = R.drawable.ic_back_arrow),
-                    contentDescription = null)
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_back_arrow),
+                    contentDescription = null
+                )
             }
         },
         actions = {
             IconButton(onClick = onBookmarkClick) {
-                Icon(painter = painterResource(id = R.drawable.ic_bookmark),
-                    contentDescription = null)
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_bookmark),
+                    contentDescription = null
+                )
             }
             IconButton(onClick = onShareClick) {
                 Icon(
-                    imageVector = Icons.Default.Search,
-                    contentDescription = null)
+                    imageVector = Icons.Default.Share,
+                    contentDescription = null
+                )
             }
             IconButton(onClick = onBrowsingClick) {
-                Icon(painter = painterResource(id = R.drawable.ic_network),
-                    contentDescription = null)
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_network),
+                    contentDescription = null
+                )
             }
         }
     )
@@ -64,13 +72,13 @@ fun DetailsTopBar(
 @Preview(showBackground = true)
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-fun DetailsTopBarPreview(){
+fun DetailsTopBarPreview() {
     Box(modifier = Modifier.background(MaterialTheme.colorScheme.background))
     Do_an_co_so_3Theme {
         DetailsTopBar(
             onBrowsingClick = { },
             onShareClick = { },
-            onBookmarkClick = { }){
+            onBookmarkClick = { }) {
 
         }
     }
