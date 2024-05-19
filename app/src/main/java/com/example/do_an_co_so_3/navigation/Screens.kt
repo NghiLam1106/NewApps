@@ -13,5 +13,5 @@ sealed class Screens(val route: String, val arguments: List<NamedNavArgument> = 
     object DetailsScreen : Screens(route = "detailsScreen")
     object AppStartNavigation : Screens(route = "appStartNavigation")
     object NewsNavigation : Screens(route = "newsNavigation")
-    object NewsNavigatorScreen : Screens(route = "newsNavigatiorScreen")
+    object NewsNavigatorScreen : Screens(route = "newsNavigator")
 }

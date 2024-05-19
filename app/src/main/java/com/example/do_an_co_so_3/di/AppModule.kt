@@ -15,7 +15,6 @@ import com.example.do_an_co_so_3.domain.usercase.news.AddArticle
 import com.example.do_an_co_so_3.domain.usercase.news.DeleteArticle
 import com.example.do_an_co_so_3.domain.usercase.news.GetNews
 import com.example.do_an_co_so_3.domain.usercase.news.GetSavedArticle
-//import com.example.do_an_co_so_3.domain.usercase.news.GetSavedArticles
 import com.example.do_an_co_so_3.domain.usercase.news.NewsUseCase
 import com.example.do_an_co_so_3.domain.usercase.news.SearchNews
 import com.example.do_an_co_so_3.util.Constants.BASE_URL
@@ -45,13 +44,13 @@ object AppModule {
     @Singleton
     fun providelocalUserManager(
         application: Application
-    ): LocalUserManager = LocalUserManagerImpI(application)
+    ): LocalUserManager = LocalUserManagerImpI(context = application)
 
     @Provides
     @Singleton
     fun provideAppEntryUseCases(
         localUserManager: LocalUserManager
-    ) = AppEntryUseCases(
+    ): AppEntryUseCases = AppEntryUseCases(
         readAppEntry = ReadAppEntry(localUserManager),
         saveAppEntry = SaveAppEntry(localUserManager)
     )
@@ -83,7 +82,6 @@ object AppModule {
             deleteArticleUseCase = DeleteArticle(newsRepository),
             addArticleUseCase = AddArticle(newsRepository),
             getSavedArticleUseCase = GetSavedArticle(newsRepository),
-//            getSavedArticlesUseCase = GetSavedArticles(newsRepository)
         )
     }
 }

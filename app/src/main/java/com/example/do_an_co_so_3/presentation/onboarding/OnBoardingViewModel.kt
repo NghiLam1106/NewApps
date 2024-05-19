@@ -15,12 +15,12 @@ class OnBoardingViewModel @Inject constructor(
     fun onEvent(event: OnBoardingEvent) {
         when(event) {
             is OnBoardingEvent.SaveAppEntry -> {
-                saveAppEntry()
+                saveUserEntry()
             }
         }
     }
 
-    private fun saveAppEntry() {
+    private fun saveUserEntry() {
         viewModelScope.launch {
             appEntryUseCases.saveAppEntry()
         }
