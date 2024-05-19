@@ -41,6 +41,12 @@ class SaveNewsViewModel @Inject constructor(
                 }
             }
         }
+
+        // Lấy dữ liệu ngay lập tức nếu người dùng đã đăng nhập
+        val currentUser = Firebase.auth.currentUser
+        if (currentUser != null) {
+            getArticles(currentUser.uid)
+        }
     }
 
     private fun getArticles(userId: String) {
